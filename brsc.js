@@ -169,6 +169,12 @@ function run(command, obj, t) {
         if(t == 0) {
             o = document.getElementById(obj)
             eval(command[1], command[0], o)
+        } else if(t == 1) {
+            o = document.getElementsByClassName(obj)
+            
+            for (var i = 0; i < o.length; i++) {
+                eval(command[1], command[0], o[i])
+            }
         }
     }
     return [obj, t]
