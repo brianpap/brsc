@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <brsc>
+        #main {
+            width 100%
+            height 20%w
+            bcolor lblue
+        }
+        $red {
+            color dred
+            margin none
+        }
+    </brsc>
+    <script src="https://brianpap.github.io/brsc/brsc.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="main">
+        <p class="red">i am red</p>
+        <p class="red">i am also red</p>
+    </div>
+</body>
+</html>
