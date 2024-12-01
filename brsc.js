@@ -77,11 +77,21 @@ function toc(line) {
                     case "margin":
                         command = "margin"
                         break;
+                    case "layout":
+                        command = "layout"
+                        break;
+                    case "gridpos":
+                        command = "gridpos"
+                        break;
                 }
-                if (sectors[i][0] == '#') {
-                    command = sectors[i]
-                }else if (sectors[i][0] == '$') {
-                    command = sectors[i]
+                if (command == "") {
+                    if(open > close) {
+                        if(sectors[i][0] == "#" || sectors[i][0] == "$") {
+                            command = sectors[i]
+                        } else {
+                            command = "-" + sectors[i]
+                        }
+                    }
                 }
             }else{
                 args.push(sectors[i])
@@ -103,6 +113,9 @@ function eval(args, com, ell) {
         if (args[0].endsWith("%h")) {
             val = ell.parentElement.offsetHeight * parseInt(args[0].replace("%h","")) / 100
         }
+        if (args[0].endsWith("px")) {
+            val = args[0].replace("px","")
+        }
         ell.style.width = val + "px"
     }else if(com == "height") {
         var val = 0
@@ -114,6 +127,9 @@ function eval(args, com, ell) {
         }
         if (args[0].endsWith("%h")) {
             val = ell.parentElement.offsetHeight * parseInt(args[0].replace("%h","")) / 100
+        }
+        if (args[0].endsWith("px")) {
+            val = args[0].replace("px","")
         }
         ell.style.height = val + "px"
     }else if(com == "color") {
@@ -151,9 +167,28 @@ function eval(args, com, ell) {
                 val = ell.parentElement.offsetHeight * parseInt(args[0].replace("%h","")) / 100
             }
             if (args[0].endsWith("px")) {
-                val = args.replace("px","")
+                val = args[0].replace("px","")
             }
-            ell.margin = val+"px"
+            ell.style.margin = val+"px"
+            
+        }
+    }else if(com == "layout") {
+        if (args[0] == "grid") {
+            ell.style.display = "grid"
+        } else if (args[0] == "vadd") {
+            ell.style.display = "flex"
+            ell.style.flexDirection = "column"
+        } else if (args[0] == "hadd") {
+            ell.style.display = "flex"
+            ell.style.flexDirection = "row"
+        }
+    } else if(com == "gridpos") {
+        ell.style.display= "flex"
+        if (args.length == 2) {
+            ell.style.gridArea = args[0]+"/"+args[1]
+        }
+        if (args.length == 4) {
+            ell.style.gridArea = args[0]+"/"+args[1]+"/"+args[2]+"/"+args[3]
         }
     }
 }
@@ -165,12 +200,21 @@ function run(command, obj, t) {
     } else if (command[0][0] == "$"){
         obj = command[0].replace("$","")
         t=1
+    }else if (command[0][0] == "-"){
+        obj = command[0].replace("-","")
+        t=2
     } else {
         if(t == 0) {
             o = document.getElementById(obj)
             eval(command[1], command[0], o)
         } else if(t == 1) {
             o = document.getElementsByClassName(obj)
+            
+            for (var i = 0; i < o.length; i++) {
+                eval(command[1], command[0], o[i])
+            }
+        } else if(t == 2) {
+            o = document.getElementsByTagName(obj)
             
             for (var i = 0; i < o.length; i++) {
                 eval(command[1], command[0], o[i])
