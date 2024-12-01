@@ -1,1 +1,66 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <brsc>
+        #grid {
+            width 100%
+            height 20%
+            bcolor lblue
+            layout grid
+        }
+        #autoline {
+            width 100%
+            height 20%
+            bcolor lblue
+            layout hadd
+        }
+        #autorow {
+            width 100%
+            height 20%
+            bcolor lblue
+            layout vadd
+        }
+        $red {
+            color dred
+            margin none
+            layout norm
+            gridpos 1 1 1 1
+        }
+        $blue {
+            color dblue
+            margin none
+            layout norm
+            gridpos 1 2 2 2
+        }
+        $green {
+            color dgreen
+            margin none
+            layout norm
+            gridpos 2 1 2 1
+        }
+        div {
+            margin 10px
+        }
+    </brsc>
+    <script src="https://brianpap.github.io/brsc/brsc.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="grid">
+        <p class="red">i am red</p>
+        <p class="blue">i am not red</p>
+        <p class="green">i am also not red</p>
+    </div>
+    <div id="autoline">
+        <p class="red">i am red</p>
+        <p class="blue">i am not red</p>
+        <p class="green">i am also not red</p>
+    </div>
+    <div id="autorow">
+        <p class="red">i am red</p>
+        <p class="blue">i am not red</p>
+        <p class="green">i am also not red</p>
+    </div>
+</body>
+</html>
